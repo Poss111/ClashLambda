@@ -89,6 +89,7 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
     - name: Deploy to AWS CloudFormation
+      if: ${{ github.ref == 'refs/heads/master' }}
       uses: aws-actions/aws-cloudformation-github-deploy@v1
       with:
         name: ClashTimeLambdaStack

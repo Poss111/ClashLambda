@@ -615,7 +615,7 @@
       "Properties": {
         "Name": "ClashTimesLambdaTrigger",
         "Description": "Event to trigger Clash Times Lambda Function.",
-        "ScheduleExpression": "rate(30 minutes)",
+        "ScheduleExpression": "cron(0 11 * * 1)",
         "State": "ENABLED",
         "Targets": [
           {

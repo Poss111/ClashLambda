@@ -1,12 +1,14 @@
 // Load the AWS SDK for Node.js
-let https = require('https');
-let AWS = require('aws-sdk');
+const moment = require('moment-timezone');
+const https = require('https');
+const AWS = require('aws-sdk');
 
 exports.handler = async (event, context, callback) => {
     console.log('Starting function...');
     let response = await new Promise((resolve, reject) => {
         console.log('Retrieving secret...');
         const secretsManager = new AWS.SecretsManager({apiVersion: '2017-10-17'});
+        const dynamo = new AWS.DynamoDB();
         secretsManager.getSecretValue({SecretId: 'RIOT_TOKEN'}, (err, data) => {
                 if (err) {
                     reject(err);
@@ -44,8 +46,46 @@ exports.handler = async (event, context, callback) => {
                                     reject(`Failed to retrieve league Clash API data due to => ${str}`);
                                 } else {
                                     let parse = JSON.parse(str);
+                                    let data = [];
+                                    const dateFormat = 'MMMM DD yyyy hh:mm a z';
+                                    const timeZone = 'America/Los_Angeles';
+                                    moment.tz.setDefault(timeZone);
+                                    parse.forEach((tourney) => {
+                                        data.push({
+                                            tournamentName: tourney.nameKey,
+                                            tournamentDay: tourney.nameKeySecondary,
+                                            startTime: new moment(tourney.schedule[0].startTime),
+                                            registrationTime: new moment(tourney.schedule[0].registrationTime)
+                                        });
+                                    });
+                                    data.sort((dateOne, dateTwo) => dateOne.startTime.diff(dateTwo.startTime));
+                                    data.forEach((data) => {
+                                        data.startTime = data.startTime.format(dateFormat);
+                                        data.registrationTime = data.registrationTime.format(dateFormat);
+                                        data.tournamentDay = data.tournamentDay.split('day_')[1];
+                                        let params = {
+                                            Item: {
+                                                'key': {
+                                                    S: `${data.tournamentName}#${data.tournamentDay}`
+                                                },
+                                                'tournamentDay': {
+                                                    S: data.tournamentDay
+                                                },
+                                                'startTime': {
+                                                    S: data.startTime
+                                                },
+                                                'registrationTime': {
+                                                    S: data.registrationTime
+                                                }
+                                            },
+                                            TableName: 'clashtimes'
+                                        }
+                                        dynamo.putItem(params, function (err, data) {
+                                            if (err) reject(err);
+                                        })
+                                    });
                                     console.log('League Clash times loaded.');
-                                    resolve(parse);
+                                    resolve(data);
                                 }
                             });
 
