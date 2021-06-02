@@ -389,6 +389,7 @@
         "Handler": "index.handler",
         "FunctionName": "ClashTimesLambdaFunc",
         "Role": "arn:aws:iam::816923827429:role/service-role/dynamoLambdaWriteRole",
+        "PackageType": "Image",
         "Code": {
           "ImageUri": {
             "Ref": "Image"
