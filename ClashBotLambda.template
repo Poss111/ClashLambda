@@ -653,7 +653,7 @@
       "Type": "String",
       "Default": "N/A",
       "ConstraintDescription": "Must be of the clash-lambda image.",
-      "AllowedPattern": ".*poss11111\\/clash-lambda.*"
+      "AllowedPattern": ".*clash-lambda.*"
     }
   },
   "Outputs": {
