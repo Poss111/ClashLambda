@@ -1,7 +1,5 @@
-FROM node:14.16.1-alpine
+FROM amazon/aws-lambda-nodejs:14
 WORKDIR /usr/src/app
-COPY package*.json ./
+COPY index.js package*.json ./
 RUN npm install
-COPY . .
-EXPOSE 8080
-CMD [ "node", "index.js" ]
+CMD [ "index.handler" ]
