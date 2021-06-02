@@ -651,9 +651,7 @@
     "Image": {
       "Description": "Image",
       "Type": "String",
-      "Default": "N/A",
-      "ConstraintDescription": "Must be of the clash-lambda image.",
-      "AllowedPattern": ".*clash-lambda.*"
+      "Default": "N/A"
     }
   },
   "Outputs": {
