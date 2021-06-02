@@ -71,22 +71,11 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         aws-region: us-east-1
 
-    - name: Login to ECR
-      id: login-ecr
-      if: ${{ github.ref == 'refs/heads/master' }}
-      uses: aws-actions/amazon-ecr-login@v1
-
-    - name: Build, tag, and push Clash-Bot image to Amazon ECR
-      id: build-image
-      if: ${{ github.ref == 'refs/heads/master' }}
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: poss11111/clash-lambda
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+    - name: Deploy to AWS CloudFormation
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      with:
+        name: ClashTimeLambdaStack
+        template: ClashBotLambda.template
 
     - name: Send deployment failure webhook
       uses: joelwmale/webhook-action@master

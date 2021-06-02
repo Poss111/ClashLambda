@@ -1,0 +1,661 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Metadata": {
+    "AWS::CloudFormation::Designer": {
+      "c759e223-47bb-4081-9337-8928282ca678": {
+        "size": {
+          "width": 790,
+          "height": 560
+        },
+        "position": {
+          "x": 120,
+          "y": 90
+        },
+        "z": 1,
+        "embeds": [
+          "116f1afc-ea1e-4b23-b290-a0a0c1aec9c8"
+        ]
+      },
+      "116f1afc-ea1e-4b23-b290-a0a0c1aec9c8": {
+        "size": {
+          "width": 710,
+          "height": 500
+        },
+        "position": {
+          "x": 180,
+          "y": 120
+        },
+        "z": 2,
+        "parent": "c759e223-47bb-4081-9337-8928282ca678",
+        "embeds": [
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "85f12cd5-653e-4225-96fa-a3f6f230c318",
+          "b91dd262-1555-4034-a009-dfe2ab8674c5",
+          "7940b2fa-6b2f-4933-86a8-a00bf572b83d"
+        ],
+        "iscontainedinside": [
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678"
+        ]
+      },
+      "85f12cd5-653e-4225-96fa-a3f6f230c318": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 480,
+          "y": 330
+        },
+        "z": 3,
+        "parent": "116f1afc-ea1e-4b23-b290-a0a0c1aec9c8",
+        "embeds": [],
+        "iscontainedinside": [
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678"
+        ]
+      },
+      "709d614a-7430-4c7a-9bde-aae66e1613f8": {
+        "size": {
+          "width": 600,
+          "height": 390
+        },
+        "position": {
+          "x": 260,
+          "y": 200
+        },
+        "z": 3,
+        "parent": "116f1afc-ea1e-4b23-b290-a0a0c1aec9c8",
+        "embeds": [
+          "0245b503-f5ff-460c-ba04-30d7343f897c"
+        ],
+        "iscontainedinside": [
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678",
+          "c759e223-47bb-4081-9337-8928282ca678"
+        ]
+      },
+      "0245b503-f5ff-460c-ba04-30d7343f897c": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 560,
+          "y": 410
+        },
+        "z": 4,
+        "parent": "709d614a-7430-4c7a-9bde-aae66e1613f8",
+        "embeds": [],
+        "isassociatedwith": [
+          "b26fbac2-20d6-4e0c-b8e7-358ef86f4fa2"
+        ],
+        "iscontainedinside": [
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8",
+          "709d614a-7430-4c7a-9bde-aae66e1613f8"
+        ],
+        "dependson": [
+          "9d346106-6074-4339-96f4-a047c879d654"
+        ]
+      },
+      "b26fbac2-20d6-4e0c-b8e7-358ef86f4fa2": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 10,
+          "y": 510
+        },
+        "z": 1,
+        "embeds": []
+      },
+      "9d346106-6074-4339-96f4-a047c879d654": {
+        "source": {
+          "id": "c759e223-47bb-4081-9337-8928282ca678"
+        },
+        "target": {
+          "id": "b26fbac2-20d6-4e0c-b8e7-358ef86f4fa2"
+        },
+        "z": 1
+      },
+      "7024b6ce-e59a-420e-9793-5f6a6c2f3cef": {
+        "source": {
+          "id": "709d614a-7430-4c7a-9bde-aae66e1613f8"
+        },
+        "target": {
+          "id": "116f1afc-ea1e-4b23-b290-a0a0c1aec9c8"
+        },
+        "z": 3
+      },
+      "7940b2fa-6b2f-4933-86a8-a00bf572b83d": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 480,
+          "y": 330
+        },
+        "z": 3,
+        "parent": "116f1afc-ea1e-4b23-b290-a0a0c1aec9c8",
+        "embeds": [],
+        "dependson": [
+          "c759e223-47bb-4081-9337-8928282ca678"
+        ]
+      },
+      "c1bff81e-0267-4fc1-852a-f24f795f6784": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 0,
+          "y": 360
+        },
+        "z": 1,
+        "embeds": [],
+        "dependson": [
+          "9d346106-6074-4339-96f4-a047c879d654"
+        ]
+      },
+      "b91dd262-1555-4034-a009-dfe2ab8674c5": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 480,
+          "y": 330
+        },
+        "z": 3,
+        "parent": "116f1afc-ea1e-4b23-b290-a0a0c1aec9c8",
+        "embeds": [],
+        "iscontainedinside": [
+          "116f1afc-ea1e-4b23-b290-a0a0c1aec9c8",
+          "116f1afc-ea1e-4b23-b290-a0a0c1aec9c8"
+        ]
+      }
+    }
+  },
+  "Resources": {
+    "ClashBotVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "EnableDnsSupport": "true",
+        "EnableDnsHostnames": "true",
+        "CidrBlock": "10.0.0.0/16"
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "c759e223-47bb-4081-9337-8928282ca678"
+        }
+      }
+    },
+    "ClashBotSubnetPublic": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "ClashBotVPC"
+        },
+        "CidrBlock": "10.0.1.0/24",
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "Clash-Bot-Lambda"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "116f1afc-ea1e-4b23-b290-a0a0c1aec9c8"
+        }
+      }
+    },
+    "ClashBotSubnetPrivate": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "ClashBotVPC"
+        },
+        "CidrBlock": "10.0.2.0/24",
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "Clash-Bot-Lambda"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "116f1afc-ea1e-4b23-b290-a0a0c1aec9c8"
+        }
+      }
+    },
+    "ClashTimesLambda": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "index.handler",
+        "FunctionName": "ClashTimesLambdaFunc",
+        "Role": "arn:aws:iam::816923827429:role/service-role/dynamoLambdaWriteRole",
+        "Code": {
+          "S3Bucket": "clash-lambda-bucket",
+          "S3Key": "ClashLambda.zip"
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 3,
+        "TracingConfig": {
+          "Mode": "Active"
+        },
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Ref": "ClashBotSG"
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Ref": "ClashBotSubnetPrivate"
+            }
+          ]
+        }
+      },
+      "DependsOn": [
+        "ClashBotVPC",
+        "ClashBotSubnetPublic",
+        "ClashBotSubnetPrivate"
+      ],
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "7940b2fa-6b2f-4933-86a8-a00bf572b83d"
+        }
+      }
+    },
+    "ClashBotSG": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "VpcId": {
+          "Ref": "ClashBotVPC"
+        },
+        "GroupDescription": "Allow access from HTTP and HTTPs traffic",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "8080",
+            "ToPort": "8080",
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "443",
+            "ToPort": "443",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "85f12cd5-653e-4225-96fa-a3f6f230c318"
+        }
+      }
+    },
+    "ClashBotRTPublic": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "ClashBotVPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "709d614a-7430-4c7a-9bde-aae66e1613f8"
+        }
+      }
+    },
+    "ClashBotRTPrivate": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "ClashBotVPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "709d614a-7430-4c7a-9bde-aae66e1613f8"
+        }
+      }
+    },
+    "ClashBotIGW": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {},
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "b26fbac2-20d6-4e0c-b8e7-358ef86f4fa2"
+        }
+      }
+    },
+    "ClashBotNAT": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "EIP",
+            "AllocationId"
+          ]
+        },
+        "SubnetId": {
+          "Ref": "ClashBotSubnetPublic"
+        },
+        "Tags": [
+          {
+            "Key": "stack",
+            "Value": "production"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "b91dd262-1555-4034-a009-dfe2ab8674c5"
+        }
+      }
+    },
+    "EIP": {
+      "DependsOn": "ClashBotVPCAttach",
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc"
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "c1bff81e-0267-4fc1-852a-f24f795f6784"
+        }
+      }
+    },
+    "ClashBotVPCAttach": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "ClashBotIGW"
+        },
+        "VpcId": {
+          "Ref": "ClashBotVPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "9d346106-6074-4339-96f4-a047c879d654"
+        }
+      }
+    },
+    "PublicRoute": {
+      "Type": "AWS::EC2::Route",
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "0245b503-f5ff-460c-ba04-30d7343f897c"
+        }
+      },
+      "DependsOn": [
+        "ClashBotVPCAttach"
+      ],
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ClashBotRTPublic"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "ClashBotIGW"
+        }
+      }
+    },
+    "PrivateRoute": {
+      "Type": "AWS::EC2::Route",
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "0245b503-f5ff-460c-ba04-30d7343f897c"
+        }
+      },
+      "DependsOn": [
+        "ClashBotVPCAttach"
+      ],
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ClashBotRTPrivate"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "ClashBotNAT"
+        }
+      }
+    },
+    "ClashBotRTA": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ClashBotRTPublic"
+        },
+        "SubnetId": {
+          "Ref": "ClashBotSubnetPublic"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "7024b6ce-e59a-420e-9793-5f6a6c2f3cef"
+        }
+      }
+    },
+    "ClashBotRTAPrivate": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ClashBotRTPrivate"
+        },
+        "SubnetId": {
+          "Ref": "ClashBotSubnetPrivate"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "7024b6ce-e59a-420e-9793-5f6a6c2f3cef"
+        }
+      }
+    },
+    "LambdaTriggerEventRule": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Name": "ClashTimesLambdaTrigger",
+        "Description": "Event to trigger Clash Times Lambda Function.",
+        "ScheduleExpression": "rate(30 minutes)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "ClashTimesLambda",
+                "Arn"
+              ]
+            },
+            "Id": "TargetFunctionV1"
+          }
+        ]
+      }
+    },
+    "PermissionForEventsToInvokeLambda": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "ClashTimesLambda"
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "LambdaTriggerEventRule",
+            "Arn"
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "URL": {
+      "Value": {
+        "Fn::GetAtt": [
+          "ClashTimesLambda",
+          "Arn"
+        ]
+      },
+      "Description": "Newly created application URL"
+    }
+  }
+}
