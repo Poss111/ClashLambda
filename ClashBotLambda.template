@@ -386,7 +386,6 @@
     "ClashTimesLambda": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
-        "Handler": "index.handler",
         "FunctionName": "ClashTimesLambdaFunc",
         "Role": "arn:aws:iam::816923827429:role/service-role/dynamoLambdaWriteRole",
         "PackageType": "Image",
@@ -395,7 +394,6 @@
             "Ref": "Image"
           }
         },
-        "Runtime": "nodejs14.x",
         "Timeout": 3,
         "TracingConfig": {
           "Mode": "Active"
