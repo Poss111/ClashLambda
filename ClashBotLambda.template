@@ -390,8 +390,9 @@
         "FunctionName": "ClashTimesLambdaFunc",
         "Role": "arn:aws:iam::816923827429:role/service-role/dynamoLambdaWriteRole",
         "Code": {
-          "S3Bucket": "clash-lambda-bucket",
-          "S3Key": "ClashLambda.zip"
+          "ImageUri": {
+            "Ref": "Image"
+          }
         },
         "Runtime": "nodejs14.x",
         "Timeout": 3,
