@@ -68,6 +68,9 @@ exports.handler = async (event, context, callback) => {
                                                 'key': {
                                                     S: `${data.tournamentName}#${data.tournamentDay}`
                                                 },
+                                                'tournamentName': {
+                                                    S: data.tournamentName
+                                                },
                                                 'tournamentDay': {
                                                     S: data.tournamentDay
                                                 },
