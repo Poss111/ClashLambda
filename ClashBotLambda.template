@@ -395,13 +395,11 @@
           }
         },
         "Environment": {
-          "Variables": [
-            {
-              "snsTopicArn": {
-                "Ref": "ClashLambdaTopic"
-              }
+          "Variables": {
+            "snsTopicArn": {
+              "Ref": "ClashLambdaTopic"
             }
-          ]
+          }
         },
         "Timeout": 3,
         "TracingConfig": {
