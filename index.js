@@ -118,7 +118,7 @@ exports.handler = async () => {
         snsMessage = `Data failed to be retrieved due to Error > ${response}`;
     }
     snsParams.Message = snsMessage;
-    await new Promise((resolve, reject), () => {
+    await new Promise((resolve, reject) => {
         console.log('Sending email...')
         sns.publish(snsParams, function(err, data) {
             if (err) reject(err);
