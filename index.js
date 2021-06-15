@@ -5,25 +5,25 @@ const AWS = require('aws-sdk');
 
 exports.handler = async (event, context, callback) => {
     console.log('Starting function...');
-    const sns = new AWS.SNS();
-    const snsParams = {
-        Message: 'STRING_VALUE', /* required */
-        MessageAttributes: {
-            '<String>': {
-                DataType: 'STRING_VALUE', /* required */
-                BinaryValue: Buffer.from('...') || 'STRING_VALUE' /* Strings will be Base-64 encoded on your behalf */,
-                StringValue: 'STRING_VALUE'
-            },
-            /* '<String>': ... */
-        },
-        MessageDeduplicationId: 'STRING_VALUE',
-        MessageGroupId: 'STRING_VALUE',
-        MessageStructure: 'STRING_VALUE',
-        PhoneNumber: 'STRING_VALUE',
-        Subject: 'STRING_VALUE',
-        TargetArn: 'STRING_VALUE',
-        TopicArn: 'STRING_VALUE'
-    };
+    // const sns = new AWS.SNS();
+    // const snsParams = {
+    //     Message: 'STRING_VALUE', /* required */
+    //     MessageAttributes: {
+    //         '<String>': {
+    //             DataType: 'STRING_VALUE', /* required */
+    //             BinaryValue: Buffer.from('...') || 'STRING_VALUE' /* Strings will be Base-64 encoded on your behalf */,
+    //             StringValue: 'STRING_VALUE'
+    //         },
+    //         /* '<String>': ... */
+    //     },
+    //     MessageDeduplicationId: 'STRING_VALUE',
+    //     MessageGroupId: 'STRING_VALUE',
+    //     MessageStructure: 'STRING_VALUE',
+    //     PhoneNumber: 'STRING_VALUE',
+    //     Subject: 'STRING_VALUE',
+    //     TargetArn: 'STRING_VALUE',
+    //     TopicArn: 'STRING_VALUE'
+    // };
     let response = await new Promise((resolve, reject) => {
         console.log('Retrieving secret...');
         const secretsManager = new AWS.SecretsManager({apiVersion: '2017-10-17'});
@@ -123,10 +123,10 @@ exports.handler = async (event, context, callback) => {
             }
         )
     });
-    sns.publish(snsParams, function(err, data) {
-        if (err) console.log(err, err.stack); // an error occurred
-        else     console.log(data);           // successful response
-    });
+    // sns.publish(snsParams, function(err, data) {
+    //     if (err) console.log(err, err.stack); // an error occurred
+    //     else     console.log(data);           // successful response
+    // });
     console.log('Call finished.');
     return response;
 };
