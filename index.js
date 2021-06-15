@@ -7,7 +7,7 @@ handler = async () => {
     console.log('Starting function...');
     console.log(`SNS Topic ARN > ${process.env.snsTopicArn}`);
     const sns = new AWS.SNS({region: 'us-east-1'});
-    const snsParams = {
+    let snsParams = {
         Message: 'Testing from lambda.',
         TopicArn: process.env.snsTopicArn
     };
@@ -110,12 +110,19 @@ handler = async () => {
             }
         )
     });
+    let snsMessage = 'Here are your Tournament Details\n-------------------------\n';
+    if(response.length) {
+        response.forEach(data => {
+            snsMessage += `Tournament Details ${data.tournamentName} Day ${data.tournamentDay} @ ${data.startTime}\n`
+        });
+    } else {
+        snsMessage = `Data failed to be retrieved due to Error > ${response}`;
+    }
+    snsParams.Message = snsMessage;
     sns.publish(snsParams, function(err, data) {
-        if (err) console.log(err, err.stack); // an error occurred
+        if (err) console.error(err, err.stack); // an error occurred
         else     console.log(data);           // successful response
     });
     console.log('Call finished.');
     return response;
 };
-
-handler();
