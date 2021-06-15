@@ -3,8 +3,9 @@ const moment = require('moment-timezone');
 const https = require('https');
 const AWS = require('aws-sdk');
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async () => {
     console.log('Starting function...');
+    console.log(`SNS Topic ARN > ${process.env.snsTopicArn}`);
     // const sns = new AWS.SNS();
     // const snsParams = {
     //     Message: 'STRING_VALUE', /* required */
@@ -123,10 +124,10 @@ exports.handler = async (event, context, callback) => {
             }
         )
     });
-    // sns.publish(snsParams, function(err, data) {
-    //     if (err) console.log(err, err.stack); // an error occurred
-    //     else     console.log(data);           // successful response
-    // });
+    sns.publish(snsParams, function(err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     console.log(data);           // successful response
+    });
     console.log('Call finished.');
     return response;
 };
