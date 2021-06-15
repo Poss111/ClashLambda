@@ -662,9 +662,9 @@
       "Type": "AWS::SNS::Subscription",
       "Properties": {
         "Endpoint": {
-          "Ref": "PhoneNumber"
+          "Ref": "Email"
         },
-        "Protocol": "sms",
+        "Protocol": "email",
         "TopicArn": {
           "Ref": "ClashLambdaTopic"
         }
@@ -677,8 +677,8 @@
       "Type": "String",
       "Default": "N/A"
     },
-    "PhoneNumber": {
-      "Description": "Number to be sent when Lambda is invoked.",
+    "Email": {
+      "Description": "The email for the Lambda notifications to be sent to.",
       "Type": "String"
     }
   },
@@ -698,11 +698,11 @@
       },
       "Description": "The ARN for the Topic"
     },
-    "SNSSubscriptionNumber": {
+    "SNSSubscriptionAddress": {
       "Value": {
-        "Ref": "PhoneNumber"
+        "Ref": "Email"
       },
-      "Description": "The ARN for the Topic"
+      "Description": "The address that is subscribed to the SNS Topic."
     }
   }
 }
