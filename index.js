@@ -118,10 +118,16 @@ exports.handler = async () => {
         snsMessage = `Data failed to be retrieved due to Error > ${response}`;
     }
     snsParams.Message = snsMessage;
-    sns.publish(snsParams, function(err, data) {
-        if (err) console.error(err, err.stack); // an error occurred
-        else     console.log(data);           // successful response
+    await new Promise((resolve, reject), () => {
+        console.log('Sending email...')
+        sns.publish(snsParams, function(err, data) {
+            if (err) reject(err);
+            else {
+                console.log('Email successfully sent.');
+                resolve(data);
+            }
+        });
     });
-    console.log('Call finished.');
+    console.log('Lambda finished.');
     return response;
 };
