@@ -333,8 +333,8 @@
     "ClashBotVPC": {
       "Type": "AWS::EC2::VPC",
       "Properties": {
-        "EnableDnsSupport": "true",
-        "EnableDnsHostnames": "true",
+        "EnableDnsSupport": true,
+        "EnableDnsHostnames": true,
         "CidrBlock": "10.0.0.0/16"
       },
       "Metadata": {
@@ -394,6 +394,15 @@
             "Ref": "Image"
           }
         },
+        "Environment": {
+          "Variables": [
+            {
+              "snsTopicArn": {
+                "Ref": "ClashLambdaTopic"
+              }
+            }
+          ]
+        },
         "Timeout": 3,
         "TracingConfig": {
           "Mode": "Active"
@@ -413,8 +422,7 @@
       },
       "DependsOn": [
         "ClashBotVPC",
-        "ClashBotSubnetPublic",
-        "ClashBotSubnetPrivate"
+        "ClashBotSubnetPublic"
       ],
       "Metadata": {
         "AWS::CloudFormation::Designer": {
@@ -432,14 +440,14 @@
         "SecurityGroupIngress": [
           {
             "IpProtocol": "tcp",
-            "FromPort": "8080",
-            "ToPort": "8080",
+            "FromPort": 8080,
+            "ToPort": 8080,
             "CidrIp": "0.0.0.0/0"
           },
           {
             "IpProtocol": "tcp",
-            "FromPort": "443",
-            "ToPort": "443",
+            "FromPort": 443,
+            "ToPort": 443,
             "CidrIp": "0.0.0.0/0"
           }
         ]
@@ -645,6 +653,24 @@
           ]
         }
       }
+    },
+    "ClashLambdaTopic": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "TopicName": "ClashLambdaTopic"
+      }
+    },
+    "ClashLambdaSubscription": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Endpoint": {
+          "Ref": "PhoneNumber"
+        },
+        "Protocol": "sms",
+        "TopicArn": {
+          "Ref": "ClashLambdaTopic"
+        }
+      }
     }
   },
   "Parameters": {
@@ -652,17 +678,33 @@
       "Description": "Image",
       "Type": "String",
       "Default": "N/A"
+    },
+    "PhoneNumber": {
+      "Description": "Number to be sent when Lambda is invoked.",
+      "Type": "String"
     }
   },
   "Outputs": {
-    "URL": {
+    "LambdaARN": {
       "Value": {
         "Fn::GetAtt": [
           "ClashTimesLambda",
           "Arn"
         ]
       },
-      "Description": "Newly created application URL"
+      "Description": "The ARN for the Lambda created."
+    },
+    "TopicARN": {
+      "Value": {
+        "Ref": "ClashLambdaTopic"
+      },
+      "Description": "The ARN for the Topic"
+    },
+    "SNSSubscriptionNumber": {
+      "Value": {
+        "Ref": "PhoneNumber"
+      },
+      "Description": "The ARN for the Topic"
     }
   }
 }
