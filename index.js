@@ -3,32 +3,18 @@ const moment = require('moment-timezone');
 const https = require('https');
 const AWS = require('aws-sdk');
 
-exports.handler = async () => {
+handler = async () => {
     console.log('Starting function...');
     console.log(`SNS Topic ARN > ${process.env.snsTopicArn}`);
-    // const sns = new AWS.SNS();
-    // const snsParams = {
-    //     Message: 'STRING_VALUE', /* required */
-    //     MessageAttributes: {
-    //         '<String>': {
-    //             DataType: 'STRING_VALUE', /* required */
-    //             BinaryValue: Buffer.from('...') || 'STRING_VALUE' /* Strings will be Base-64 encoded on your behalf */,
-    //             StringValue: 'STRING_VALUE'
-    //         },
-    //         /* '<String>': ... */
-    //     },
-    //     MessageDeduplicationId: 'STRING_VALUE',
-    //     MessageGroupId: 'STRING_VALUE',
-    //     MessageStructure: 'STRING_VALUE',
-    //     PhoneNumber: 'STRING_VALUE',
-    //     Subject: 'STRING_VALUE',
-    //     TargetArn: 'STRING_VALUE',
-    //     TopicArn: 'STRING_VALUE'
-    // };
+    const sns = new AWS.SNS({region: 'us-east-1'});
+    const snsParams = {
+        Message: 'Testing from lambda.',
+        TopicArn: process.env.snsTopicArn
+    };
     let response = await new Promise((resolve, reject) => {
         console.log('Retrieving secret...');
-        const secretsManager = new AWS.SecretsManager({apiVersion: '2017-10-17'});
-        const dynamo = new AWS.DynamoDB();
+        const secretsManager = new AWS.SecretsManager({apiVersion: '2017-10-17', region: 'us-east-1'});
+        const dynamo = new AWS.DynamoDB({region: 'us-east-1'});
         secretsManager.getSecretValue({SecretId: 'RIOT_TOKEN'}, (err, data) => {
                 if (err) {
                     reject(err);
@@ -103,7 +89,7 @@ exports.handler = async () => {
                                             },
                                             TableName: 'clashtimes'
                                         }
-                                        dynamo.putItem(params, function (err, data) {
+                                        dynamo.putItem(params, function (err) {
                                             if (err) reject(err);
                                         })
                                     });
@@ -131,3 +117,5 @@ exports.handler = async () => {
     console.log('Call finished.');
     return response;
 };
+
+handler();

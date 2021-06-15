@@ -94,7 +94,7 @@ jobs:
       with:
         name: ClashTimeLambdaStack
         template: ClashBotLambda.template
-        parameter-overrides: "Image=${{ steps.build-image.outputs.image }},PhoneNumber=${{ secrets.PHONE_NUMBER }}"
+        parameter-overrides: "Image=${{ steps.build-image.outputs.image }},Email=${{ secrets.EMAIL_ADDRESS }}"
 
     - name: Send deployment failure webhook
       uses: joelwmale/webhook-action@master
