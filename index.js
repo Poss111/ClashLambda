@@ -3,18 +3,17 @@ const moment = require('moment-timezone');
 const https = require('https');
 const AWS = require('aws-sdk');
 
-handler = async () => {
+exports.handler = async () => {
     console.log('Starting function...');
-    console.log(`SNS Topic ARN > ${process.env.snsTopicArn}`);
-    const sns = new AWS.SNS({region: 'us-east-1'});
+    const sns = new AWS.SNS();
     let snsParams = {
         Message: 'Testing from lambda.',
         TopicArn: process.env.snsTopicArn
     };
     let response = await new Promise((resolve, reject) => {
         console.log('Retrieving secret...');
-        const secretsManager = new AWS.SecretsManager({apiVersion: '2017-10-17', region: 'us-east-1'});
-        const dynamo = new AWS.DynamoDB({region: 'us-east-1'});
+        const secretsManager = new AWS.SecretsManager({apiVersion: '2017-10-17'});
+        const dynamo = new AWS.DynamoDB();
         secretsManager.getSecretValue({SecretId: 'RIOT_TOKEN'}, (err, data) => {
                 if (err) {
                     reject(err);
