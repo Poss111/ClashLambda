@@ -43,6 +43,7 @@ jobs:
 
     - name: Build failed Discord Webhook
       uses: Poss111/discord-hook-action@v1.6.8
+      if: ${{ failure() }}
       with:
         discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
         title: 'Clash Bot Tournaments Lambda - Build - Notification'
@@ -100,6 +101,7 @@ jobs:
 
     - name: Deployment failed Discord Webhook
       uses: Poss111/discord-hook-action@v1.6.8
+      if: ${{ failure() }}
       with:
         discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
         title: 'Clash Bot Tournaments Lambda - Deployment - Notification'

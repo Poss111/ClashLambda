@@ -55,7 +55,7 @@ exports.handler = async () => {
                                     const dateFormat = 'MMMM DD yyyy hh:mm a z';
                                     const timeZone = 'America/Los_Angeles';
                                     moment.tz.setDefault(timeZone);
-                                    if (Array.isArray(parse)) {
+                                    if (Array.isArray(parse) && parse.length > 0) {
                                         parse.forEach((tourney) => {
                                             data.push({
                                                 tournamentName: tourney.nameKey,
