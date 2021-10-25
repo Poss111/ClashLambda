@@ -96,7 +96,7 @@ exports.handler = async () => {
                                         console.log('League Clash times loaded.');
                                         resolve(data);
                                     } else {
-                                        reject('No upcoming tournaments.')
+                                        resolve('No upcoming Clash Tournaments.')
                                     }
                                 }
                             });
