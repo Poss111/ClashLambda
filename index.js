@@ -55,45 +55,49 @@ exports.handler = async () => {
                                     const dateFormat = 'MMMM DD yyyy hh:mm a z';
                                     const timeZone = 'America/Los_Angeles';
                                     moment.tz.setDefault(timeZone);
-                                    parse.forEach((tourney) => {
-                                        data.push({
-                                            tournamentName: tourney.nameKey,
-                                            tournamentDay: tourney.nameKeySecondary,
-                                            startTime: new moment(tourney.schedule[0].startTime),
-                                            registrationTime: new moment(tourney.schedule[0].registrationTime)
+                                    if (Array.isArray(parse)) {
+                                        parse.forEach((tourney) => {
+                                            data.push({
+                                                tournamentName: tourney.nameKey,
+                                                tournamentDay: tourney.nameKeySecondary,
+                                                startTime: new moment(tourney.schedule[0].startTime),
+                                                registrationTime: new moment(tourney.schedule[0].registrationTime)
+                                            });
                                         });
-                                    });
-                                    data.sort((dateOne, dateTwo) => dateOne.startTime.diff(dateTwo.startTime));
-                                    data.forEach((data) => {
-                                        data.startTime = data.startTime.format(dateFormat);
-                                        data.registrationTime = data.registrationTime.format(dateFormat);
-                                        data.tournamentDay = data.tournamentDay.split('day_')[1];
-                                        let params = {
-                                            Item: {
-                                                'key': {
-                                                    S: `${data.tournamentName}#${data.tournamentDay}`
+                                        data.sort((dateOne, dateTwo) => dateOne.startTime.diff(dateTwo.startTime));
+                                        data.forEach((data) => {
+                                            data.startTime = data.startTime.format(dateFormat);
+                                            data.registrationTime = data.registrationTime.format(dateFormat);
+                                            data.tournamentDay = data.tournamentDay.split('day_')[1];
+                                            let params = {
+                                                Item: {
+                                                    'key': {
+                                                        S: `${data.tournamentName}#${data.tournamentDay}`
+                                                    },
+                                                    'tournamentName': {
+                                                        S: data.tournamentName
+                                                    },
+                                                    'tournamentDay': {
+                                                        S: data.tournamentDay
+                                                    },
+                                                    'startTime': {
+                                                        S: data.startTime
+                                                    },
+                                                    'registrationTime': {
+                                                        S: data.registrationTime
+                                                    }
                                                 },
-                                                'tournamentName': {
-                                                    S: data.tournamentName
-                                                },
-                                                'tournamentDay': {
-                                                    S: data.tournamentDay
-                                                },
-                                                'startTime': {
-                                                    S: data.startTime
-                                                },
-                                                'registrationTime': {
-                                                    S: data.registrationTime
-                                                }
-                                            },
-                                            TableName: 'clashtimes'
-                                        }
-                                        dynamo.putItem(params, function (err) {
-                                            if (err) reject(err);
-                                        })
-                                    });
-                                    console.log('League Clash times loaded.');
-                                    resolve(data);
+                                                TableName: 'clashtimes'
+                                            }
+                                            dynamo.putItem(params, function (err) {
+                                                if (err) reject(err);
+                                            })
+                                        });
+                                        console.log('League Clash times loaded.');
+                                        resolve(data);
+                                    } else {
+                                        reject('No upcoming tournaments.')
+                                    }
                                 }
                             });
 
@@ -110,17 +114,17 @@ exports.handler = async () => {
         )
     });
     let snsMessage = 'Here are your Tournament Details\n-------------------------\n';
-    if(response.length) {
+    if (response.length) {
         response.forEach(data => {
             snsMessage += `Tournament Details ${data.tournamentName} Day ${data.tournamentDay} @ ${data.startTime}\n`
         });
     } else {
-        snsMessage = `Data failed to be retrieved due to Error > ${response}`;
+        snsMessage = `Data failed to be retrieved due to > ${response}`;
     }
     snsParams.Message = snsMessage;
     await new Promise((resolve, reject) => {
         console.log('Sending email...')
-        sns.publish(snsParams, function(err, data) {
+        sns.publish(snsParams, function (err, data) {
             if (err) reject(err);
             else {
                 console.log('Email successfully sent.');
