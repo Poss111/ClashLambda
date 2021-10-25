@@ -55,7 +55,7 @@ jobs:
       with:
         discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
         title: 'Clash Bot Tournaments Lambda - Build - Notification'
-        message: 'Github succeeded failed!'
+        message: 'Github succeeded succeeded!'
         message-color: '65345'
 
     - name: Deployment in progress Discord Webhook

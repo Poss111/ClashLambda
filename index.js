@@ -114,7 +114,7 @@ exports.handler = async () => {
         )
     });
     let snsMessage = 'Here are your Tournament Details\n-------------------------\n';
-    if (response.length) {
+    if (Array.isArray(response) && response.length) {
         response.forEach(data => {
             snsMessage += `Tournament Details ${data.tournamentName} Day ${data.tournamentDay} @ ${data.startTime}\n`
         });
