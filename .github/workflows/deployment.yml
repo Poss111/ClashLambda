@@ -41,7 +41,7 @@ jobs:
       - uses: FranzDiebold/github-env-vars-action@v2.1.0
 
       - name: Build Start Discord Webhook
-        uses: Poss111/discord-hook-action@v1.6.8
+        uses: Poss111/discord-hook-action@v1.6.13
         with:
           discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           title: 'Clash Bot Deployment Notification - Time Lambda'
@@ -82,7 +82,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build Docker Image Start Discord Webhook
-        uses: Poss111/discord-hook-action@v1.6.8
+        uses: Poss111/discord-hook-action@v1.6.13
         with:
           discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           title: 'Clash Bot Time Lambda Deployment Notification'
@@ -102,7 +102,7 @@ jobs:
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Deployment Failed Discord Webhook
-        uses: Poss111/discord-hook-action@v1.6.8
+        uses: Poss111/discord-hook-action@v1.6.13
         if: ${{ failure() }}
         with:
           discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
@@ -111,7 +111,7 @@ jobs:
           message-color: '16711680'
 
       - name: Deployment Succeeded Discord Webhook
-        uses: Poss111/discord-hook-action@v1.6.8
+        uses: Poss111/discord-hook-action@v1.6.13
         if: ${{ success() }}
         with:
           discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
@@ -127,7 +127,7 @@ jobs:
       - uses: FranzDiebold/github-env-vars-action@v2.1.0
 
       - name: Build Start Discord Webhook
-        uses: Poss111/discord-hook-action@v1.6.8
+        uses: Poss111/discord-hook-action@v1.6.13
         with:
           discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           title: 'Clash Bot Deployment Notification - Time Lambda'
@@ -165,7 +165,7 @@ jobs:
           fi
 
       - name: Deployment In Progress Discord Webhook
-        uses: Poss111/discord-hook-action@v1.6.8
+        uses: Poss111/discord-hook-action@v1.6.13
         if: ${{ success()}}
         with:
           discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
@@ -211,7 +211,7 @@ jobs:
         run: terraform apply -auto-approve -input=false
 
       - name: Deployment In Progress Discord Webhook
-        uses: Poss111/discord-hook-action@v1.6.8
+        uses: Poss111/discord-hook-action@v1.6.13
         if: ${{ failure() }}
         with:
           discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
@@ -220,7 +220,7 @@ jobs:
           message-color: '16711680'
 
       - name: Deployment In Progress Discord Webhook
-        uses: Poss111/discord-hook-action@v1.6.8
+        uses: Poss111/discord-hook-action@v1.6.13
         if: ${{ success()}}
         with:
           discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
