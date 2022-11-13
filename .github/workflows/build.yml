@@ -1,113 +1,127 @@
-name: CI
+name: Build Lambda Code - Verify PR
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
+    paths-ignore:
+      - '**/README.md'
+      - '**/.gitignore'
 
 jobs:
-  build:
+
+  build-lambda:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: FranzDiebold/github-env-vars-action@v2.1.0
+      - uses: FranzDiebold/github-env-vars-action@v2.1.0
 
-    - uses: joelwmale/webhook-action@master
-      with:
-        url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        headers: '{"Content-Type": "application/json"}'
-        body: "{  \"username\": \"Dan Bot\", \"avatar_url\": \"https://i.imgur.com/Hrbi1Ht.jpg\", \"embeds\": [{ \"author\": {\"name\": \"Github\",\"url\": \"https://github.com/Poss111/ClashLambda\",\"icon_url\": \"https://img.icons8.com/ios-filled/344/github-2.png\"      },      \"title\": \"Clash Lambda Deployment Notification\",      \"url\": \"https://github.com/Poss111/ClashLambda/actions/runs/${{ github.run_id }}\",      \"description\": \"Starting Github build...\",      \"color\": 15258703,      \"fields\": [{  \"name\": \"Build #\",  \"value\": \"${{ github.run_id }}\",  \"inline\": true},{  \"name\": \"Branch\",  \"value\": \"${{ github.ref }}\",  \"inline\": true}, { \"name\": \"SHA\", \"value\": \"${{ github.sha }}\", \"inline\": false},{  \"name\": \"Triggered By\",  \"value\": \"${{ github.actor }}\",  \"inline\": false}      ]    }  ]}"
+      - name: Build Start Discord Webhook
+        uses: Poss111/discord-hook-action@v1.6.8
+        with:
+          discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          title: 'Clash Bot Build Notification - Time Lambda'
+          message: 'Starting Github build...'
+          message-color: '15258703'
 
-    - name: Check
-      run : echo build $GITHUB_RUN_NUMBER
+      - uses: actions/checkout@v2
 
-    - uses: actions/checkout@v2
+      - name: Install Dependencies
+        working-directory: ./lambda
+        run: npm i
 
-    - name: Cache node modules
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-node-modules
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
-    - name: Install Dependencies
-      run: npm i
+      - name: Build and push Docker Image
+        working-directory: ./lambda
+        run: docker build -t poss11111/clash-lambda:test .
 
-    - name: Send failure webhook
-      uses: joelwmale/webhook-action@master
-      if: ${{ failure() }}
-      with:
-        url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        headers: '{"Content-Type": "application/json"}'
-        body: "{\"username\": \"Dan Bot\", \"avatar_url\": \"https://i.imgur.com/Hrbi1Ht.jpg\", \"embeds\": [{\"author\": {\"name\": \"Github\", \"url\": \"https://github.com/Poss111/ClashLambda\", \"icon_url\": \"https://img.icons8.com/ios-filled/344/github-2.png\"}, \"title\": \"Clash Lambda Deployment Notification\", \"url\": \"https://github.com/Poss111/ClashLambda/actions/runs/${{ github.run_id }}\", \"description\": \"Github build failed!\", \"color\": 16711680, \"fields\": [{\"name\": \"Build #\", \"value\": \"${{ github.run_id }}\", \"inline\": true}, {\"name\": \"Branch\", \"value\": \"${{ github.ref }}\", \"inline\": true}, {\"name\": \"SHA\", \"value\": \"${{ github.sha }}\", \"inline\": false}, {\"name\": \"Triggered By\", \"value\": \"${{ github.actor }}\", \"inline\": false}]}]}"
+      - name: Build Failed Discord Webhook
+        uses: Poss111/discord-hook-action@v1.6.8
+        if: ${{ failure() }}
+        with:
+          discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          title: 'Clash Bot Build Notification - Time Lambda'
+          message: 'Github build failed!'
+          message-color: '16711680'
 
-    - name: Send success webhook
-      uses: joelwmale/webhook-action@master
-      if: ${{ success() && github.ref != 'refs/heads/master'}}
-      with:
-        url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        headers: '{"Content-Type": "application/json"}'
-        body: "{\"username\": \"Dan Bot\", \"avatar_url\": \"https://i.imgur.com/Hrbi1Ht.jpg\", \"embeds\": [{\"author\": {\"name\": \"Github\", \"url\": \"https://github.com/Poss111/ClashLambda\", \"icon_url\": \"https://img.icons8.com/ios-filled/344/github-2.png\"}, \"title\": \"Clash Lambda  Deployment Notification\", \"url\": \"https://github.com/Poss111/ClashLambda/actions/runs/${{ github.run_id }}\", \"description\": \"Github build succeeded!\", \"color\": 65345, \"fields\": [{\"name\": \"Build #\", \"value\": \"${{ github.run_id }}\", \"inline\": true}, {\"name\": \"Branch\", \"value\": \"${{ github.ref }}\", \"inline\": true}, {\"name\": \"SHA\", \"value\": \"${{ github.sha }}\", \"inline\": false}, {\"name\": \"Triggered By\", \"value\": \"${{ github.actor }}\", \"inline\": false}]}]}"
+      - name: Build Succeeded Discord Webhook
+        uses: Poss111/discord-hook-action@v1.6.8
+        if: ${{ success() }}
+        with:
+          discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          title: 'Clash Bot Build Notification - Time Lambda'
+          message: 'Github build succeeded!'
+          message-color: '65345'
 
-    - name: Send deployement in progress webhook
-      uses: joelwmale/webhook-action@master
-      if: ${{ success() && github.ref == 'refs/heads/master' }}
-      with:
-        url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        headers: '{"Content-Type": "application/json"}'
-        body: "{\"username\": \"Dan Bot\", \"avatar_url\": \"https://i.imgur.com/Hrbi1Ht.jpg\", \"embeds\": [{\"author\": {\"name\": \"Github\", \"url\": \"https://github.com/Poss111/ClashLambda\", \"icon_url\": \"https://img.icons8.com/ios-filled/344/github-2.png\"}, \"title\": \"Clash Lambda Deployment Notification\", \"url\": \"https://github.com/Poss111/ClashLambda/actions/runs/${{ github.run_id }}\", \"description\": \"Deployment in progress...\", \"color\": 16750902, \"fields\": [{\"name\": \"Build #\", \"value\": \"${{ github.run_id }}\", \"inline\": true}, {\"name\": \"Branch\", \"value\": \"${{ github.ref }}\", \"inline\": true}, {\"name\": \"SHA\", \"value\": \"${{ github.sha }}\", \"inline\": false}, {\"name\": \"Triggered By\", \"value\": \"${{ github.actor }}\", \"inline\": false}]}]}"
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      if: ${{ github.ref == 'refs/heads/master' }}
-      with:
-        aws-access-key-id: ${{ secrets.AWS_SECRET_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-        aws-region: us-east-1
-
-    - name: Login to ECR
-      id: login-ecr
-      if: ${{ github.ref == 'refs/heads/master' }}
-      uses: aws-actions/amazon-ecr-login@v1
-
-    - name: Build, tag, and push Clash-Bot image to Amazon ECR
-      id: build-image
-      if: ${{ github.ref == 'refs/heads/master' }}
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: poss11111/clash-lambda
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-
-    - name: Deploy to AWS CloudFormation
-      if: ${{ github.ref == 'refs/heads/master' }}
-      uses: aws-actions/aws-cloudformation-github-deploy@v1
-      with:
-        name: ClashTimeLambdaStack
-        template: ClashBotLambda.template
-        parameter-overrides: "Image=${{ steps.build-image.outputs.image }}"
-
-    - name: Send deployment failure webhook
-      uses: joelwmale/webhook-action@master
-      if: ${{ failure() && github.ref == 'refs/heads/master' }}
-      with:
-        url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        headers: '{"Content-Type": "application/json"}'
-        body: "{\"username\": \"Dan Bot\", \"avatar_url\": \"https://i.imgur.com/Hrbi1Ht.jpg\", \"embeds\": [{\"author\": {\"name\": \"Github\", \"url\": \"https://github.com/Poss111/ClashLambda\", \"icon_url\": \"https://img.icons8.com/ios-filled/344/github-2.png\"}, \"title\": \"Clash Lambda Deployment Notification\", \"url\": \"https://github.com/Poss111/ClashLambda/actions/runs/${{ github.run_id }}\", \"description\": \"Deployment failed!\", \"color\": 16711680, \"fields\": [{\"name\": \"Build #\", \"value\": \"${{ github.run_id }}\", \"inline\": true}, {\"name\": \"Branch\", \"value\": \"${{ github.ref }}\", \"inline\": true}, {\"name\": \"SHA\", \"value\": \"${{ github.sha }}\", \"inline\": false}, {\"name\": \"Triggered By\", \"value\": \"${{ github.actor }}\", \"inline\": false}]}]}"
-
-    - name: Send deployment success webhook
-      uses: joelwmale/webhook-action@master
-      if: ${{ success() && github.ref == 'refs/heads/master' }}
-      with:
-        url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        headers: '{"Content-Type": "application/json"}'
-        body: "{\"username\": \"Dan Bot\", \"avatar_url\": \"https://i.imgur.com/Hrbi1Ht.jpg\", \"embeds\": [{\"author\": {\"name\": \"Github\", \"url\": \"https://github.com/Poss111/ClashLambda\", \"icon_url\": \"https://img.icons8.com/ios-filled/344/github-2.png\"}, \"title\": \"Clash Lambda Deployment Notification\", \"url\": \"https://github.com/Poss111/ClashLambda/actions/runs/${{ github.run_id }}\", \"description\": \"Deployment succeeded!\", \"color\": 65345, \"fields\": [{\"name\": \"Build #\", \"value\": \"${{ github.run_id }}\", \"inline\": true}, {\"name\": \"Branch\", \"value\": \"${{ github.ref }}\", \"inline\": true}, {\"name\": \"SHA\", \"value\": \"${{ github.sha }}\", \"inline\": false}, {\"name\": \"Triggered By\", \"value\": \"${{ github.actor }}\", \"inline\": false}]}]}"
+#  test:
+#    needs: build-lambda
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: FranzDiebold/github-env-vars-action@v2.1.0
+#
+#      - name: Build Start Discord Webhook
+#        uses: Poss111/discord-hook-action@v1.6.8
+#        with:
+#          discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+#          title: 'Clash Bot Build Notification - Time Lambda'
+#          message: 'Starting Github test...'
+#          message-color: '15258703'
+#
+#      - name: Check
+#        run : echo build $GITHUB_RUN_NUMBER
+#
+#      - uses: actions/checkout@v2
+#
+#      - name: Cache node modules
+#        uses: actions/cache@v2
+#        env:
+#          cache-name: cache-node-modules
+#        with:
+#          path: ~/.npm
+#          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+#          restore-keys: |
+#            ${{ runner.os }}-build-${{ env.cache-name }}-
+#            ${{ runner.os }}-build-
+#            ${{ runner.os }}-
+#
+#      - name: Install Dependencies
+#        working-directory: ./lambda
+#        run: npm i
+#
+#      - name: Run unit tests
+#        working-directory: ./lambda
+#        run: npm test
+#
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: coverage-artifact
+#          path: lambda/coverage
+#
+#      - name: Build Failed Discord Webhook
+#        uses: Poss111/discord-hook-action@v1.6.8
+#        if: ${{ failure() }}
+#        with:
+#          discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+#          title: 'Clash Bot Build Notification - Time Lambda'
+#          message: 'Github test failed!'
+#          message-color: '16711680'
+#
+#      - name: Build Succeeded Discord Webhook
+#        uses: Poss111/discord-hook-action@v1.6.8
+#        if: ${{ success() }}
+#        with:
+#          discord-hook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+#          title: 'Clash Bot Build Notification - Time Lambda'
+#          message: 'Github test succeeded!'
+#          message-color: '65345'
