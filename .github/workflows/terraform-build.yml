@@ -1,4 +1,4 @@
-name: Clash Bot Obs Terraform Plan
+name: Clash Bot Time Lambda Terraform Plan
 
 on:
   pull_request:
