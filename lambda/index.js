@@ -3,8 +3,13 @@ const moment = require('moment-timezone');
 const https = require('https');
 const AWS = require('aws-sdk');
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async () => {
     console.log('Starting function...');
+    const sns = new AWS.SNS();
+    let snsParams = {
+        Message: 'Testing from lambda.',
+        TopicArn: process.env.snsTopicArn
+    };
     let response = await new Promise((resolve, reject) => {
         console.log('Retrieving secret...');
         const secretsManager = new AWS.SecretsManager({apiVersion: '2017-10-17'});
@@ -50,45 +55,49 @@ exports.handler = async (event, context, callback) => {
                                     const dateFormat = 'MMMM DD yyyy hh:mm a z';
                                     const timeZone = 'America/Los_Angeles';
                                     moment.tz.setDefault(timeZone);
-                                    parse.forEach((tourney) => {
-                                        data.push({
-                                            tournamentName: tourney.nameKey,
-                                            tournamentDay: tourney.nameKeySecondary,
-                                            startTime: new moment(tourney.schedule[0].startTime),
-                                            registrationTime: new moment(tourney.schedule[0].registrationTime)
+                                    if (Array.isArray(parse) && parse.length > 0) {
+                                        parse.forEach((tourney) => {
+                                            data.push({
+                                                tournamentName: tourney.nameKey,
+                                                tournamentDay: tourney.nameKeySecondary,
+                                                startTime: new moment(tourney.schedule[0].startTime),
+                                                registrationTime: new moment(tourney.schedule[0].registrationTime)
+                                            });
                                         });
-                                    });
-                                    data.sort((dateOne, dateTwo) => dateOne.startTime.diff(dateTwo.startTime));
-                                    data.forEach((data) => {
-                                        data.startTime = data.startTime.format(dateFormat);
-                                        data.registrationTime = data.registrationTime.format(dateFormat);
-                                        data.tournamentDay = data.tournamentDay.split('day_')[1];
-                                        let params = {
-                                            Item: {
-                                                'key': {
-                                                    S: `${data.tournamentName}#${data.tournamentDay}`
+                                        data.sort((dateOne, dateTwo) => dateOne.startTime.diff(dateTwo.startTime));
+                                        data.forEach((data) => {
+                                            data.startTime = data.startTime.format(dateFormat);
+                                            data.registrationTime = data.registrationTime.format(dateFormat);
+                                            data.tournamentDay = data.tournamentDay.split('day_')[1];
+                                            let params = {
+                                                Item: {
+                                                    'key': {
+                                                        S: `${data.tournamentName}#${data.tournamentDay}`
+                                                    },
+                                                    'tournamentName': {
+                                                        S: data.tournamentName
+                                                    },
+                                                    'tournamentDay': {
+                                                        S: data.tournamentDay
+                                                    },
+                                                    'startTime': {
+                                                        S: data.startTime
+                                                    },
+                                                    'registrationTime': {
+                                                        S: data.registrationTime
+                                                    }
                                                 },
-                                                'tournamentName': {
-                                                    S: data.tournamentName
-                                                },
-                                                'tournamentDay': {
-                                                    S: data.tournamentDay
-                                                },
-                                                'startTime': {
-                                                    S: data.startTime
-                                                },
-                                                'registrationTime': {
-                                                    S: data.registrationTime
-                                                }
-                                            },
-                                            TableName: 'clashtimes'
-                                        }
-                                        dynamo.putItem(params, function (err, data) {
-                                            if (err) reject(err);
-                                        })
-                                    });
-                                    console.log('League Clash times loaded.');
-                                    resolve(data);
+                                                TableName: 'clashtimes'
+                                            }
+                                            dynamo.putItem(params, function (err) {
+                                                if (err) reject(err);
+                                            })
+                                        });
+                                        console.log('League Clash times loaded.');
+                                        resolve(data);
+                                    } else {
+                                        resolve('No upcoming Clash Tournaments.')
+                                    }
                                 }
                             });
 
@@ -104,6 +113,25 @@ exports.handler = async (event, context, callback) => {
             }
         )
     });
-    console.log('Call finished.');
+    let snsMessage = 'Here are your Tournament Details\n-------------------------\n';
+    if (Array.isArray(response) && response.length) {
+        response.forEach(data => {
+            snsMessage += `Tournament Details ${data.tournamentName} Day ${data.tournamentDay} @ ${data.startTime}\n`
+        });
+    } else {
+        snsMessage = `Data failed to be retrieved due to > ${response}`;
+    }
+    snsParams.Message = snsMessage;
+    await new Promise((resolve, reject) => {
+        console.log('Sending email...')
+        sns.publish(snsParams, function (err, data) {
+            if (err) reject(err);
+            else {
+                console.log('Email successfully sent.');
+                resolve(data);
+            }
+        });
+    });
+    console.log('Lambda finished.');
     return response;
 };
