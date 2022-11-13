@@ -3,7 +3,8 @@ terraform {
     organization = "ClashBot"
 
     workspaces {
-      name = "ClashBot-TimeLambda"
+      name        = "ClashBot-TimeLambda"
+      description = "This stack is for the Clash Bot Time Lambda for ingesting League of Legends Clash Tournament times and send an email out to the subscribed email list."
     }
   }
   required_providers {
