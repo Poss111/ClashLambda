@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "clash_bot_topic_policy_document" {
   policy_id = "__clash-bot-time-topic-policy"
 
   statement {
-    sid = "__clash-bot-time-topic-policy-id"
+    sid     = "__clash-bot-time-topic-policy-id"
     actions = var.topic_actions
 
     condition {

@@ -50,13 +50,13 @@ variable "email_address" {
 }
 
 variable "topic_actions" {
-  default = []
-  type    = list(string)
+  default   = []
+  type      = list(string)
   sensitive = true
 }
 
 variable "sns_policies" {
-  default = []
-  type    = list(string)
+  default   = []
+  type      = list(string)
   sensitive = true
 }

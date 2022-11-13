@@ -1,7 +1,7 @@
 resource "aws_iam_policy" "cloudwatch_iam_policy" {
-  name   = "clash-bot-time-cloudwatch-lambda-policy"
+  name = "clash-bot-time-cloudwatch-lambda-policy"
   policy = jsonencode({
-    Version   = "2012-10-17",
+    Version = "2012-10-17",
     Statement = [
       {
         Effect   = "Allow",
@@ -13,9 +13,9 @@ resource "aws_iam_policy" "cloudwatch_iam_policy" {
 }
 
 resource "aws_iam_policy" "network_iam_policy" {
-  name   = "clash-bot-time-network-lambda-policy"
+  name = "clash-bot-time-network-lambda-policy"
   policy = jsonencode({
-    Version   = "2012-10-17",
+    Version = "2012-10-17",
     Statement = [
       {
         Effect   = "Allow",
@@ -27,9 +27,9 @@ resource "aws_iam_policy" "network_iam_policy" {
 }
 
 resource "aws_iam_policy" "cloudwatch_secret_policy" {
-  name   = "clash-bot-time-secret-lambda-policy"
+  name = "clash-bot-time-secret-lambda-policy"
   policy = jsonencode({
-    Version   = "2012-10-17",
+    Version = "2012-10-17",
     Statement = [
       {
         Effect   = "Allow",
@@ -41,9 +41,9 @@ resource "aws_iam_policy" "cloudwatch_secret_policy" {
 }
 
 resource "aws_iam_policy" "sns_policy" {
-  name   = "clash-bot-time-sns-lambda-policy"
+  name = "clash-bot-time-sns-lambda-policy"
   policy = jsonencode({
-    Version   = "2012-10-17",
+    Version = "2012-10-17",
     Statement = [
       {
         Effect   = "Allow",
@@ -62,7 +62,7 @@ resource "aws_lambda_permission" "log_event_trigger_permission" {
 }
 
 resource "aws_iam_role" "clash-bot-time-lambda-role" {
-  name               = "clash-bot-time-lambda-role"
+  name = "clash-bot-time-lambda-role"
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
