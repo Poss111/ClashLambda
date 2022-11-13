@@ -3,7 +3,7 @@ terraform {
     organization = "ClashBot"
 
     workspaces {
-      name        = "ClashBot-TimeLambda"
+      name = "ClashBot-TimeLambda"
     }
   }
   required_providers {
